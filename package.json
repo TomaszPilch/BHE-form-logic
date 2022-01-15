@@ -1,6 +1,6 @@
 {
   "name": "@bheui/form-logic",
-  "version": "0.1.0-rc1",
+  "version": "0.1.0-rc2",
   "description": "Form logic wrapper. You just pass your input components.",
   "main": "dist",
   "repository": "https://github.com/TomaszPilch/BHE-form-logic.git",
