@@ -1,6 +1,6 @@
 {
   "name": "@bheui/form-logic",
-  "version": "0.1.0-rc2",
+  "version": "0.1.0-rc3",
   "description": "Form logic wrapper. You just pass your input components.",
   "main": "dist",
   "repository": "https://github.com/TomaszPilch/BHE-form-logic.git",
@@ -25,6 +25,8 @@
     "react-dom": "^16.6.0 || ^17"
   },
   "dependencies": {
+    "devx-js-utilities": "^0.1.7",
+    "ramda": "^0.27.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.8",
