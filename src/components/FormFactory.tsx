@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, Dispatch, SetStateAction, FormEvent, ComponentType } from 'react'
+import React, { useState, useEffect, useCallback, Dispatch, SetStateAction, FormEvent, ReactElement } from 'react'
 import { assoc } from 'ramda'
 
 // components
@@ -20,18 +20,7 @@ import {
 import { FetchResourceType } from '../utilities/selects'
 import { TranslateFunctionType } from '../types/TranslationTypes'
 
-type StandaloneDataProps = {
-  standalone: true
-  data?: FormDataType
-}
-
-type DataProps = {
-  standalone: false
-  data: FormDataType
-}
-
 interface PropTypes<CustomFormConfig extends FormConfig> extends DefaultFieldActionProps<any> {
-  data?: FormDataType
   defaultData?: FormDataType
   editable: boolean
   fetchResources: FetchResourceType
@@ -46,12 +35,22 @@ interface PropTypes<CustomFormConfig extends FormConfig> extends DefaultFieldAct
   columnCreator?: (key: string, children: JSX.Element) => JSX.Element
   submitButtonComponentCreator?: (
     submitFn: (event: FormEvent<HTMLFormElement> | React.MouseEvent<any | HTMLSpanElement>) => void,
-  ) => ComponentType
+  ) => ReactElement
+}
+
+interface StandaloneDataProps<CustomFormConfig extends FormConfig> extends PropTypes<CustomFormConfig> {
+  standalone: true
+  data?: never
+}
+
+interface DataProps<CustomFormConfig extends FormConfig> extends PropTypes<CustomFormConfig> {
+  standalone: false
+  data: FormDataType
 }
 
 export type FormComponentProps<CustomFormConfig extends FormConfig> =
-  | (StandaloneDataProps & PropTypes<CustomFormConfig>)
-  | (DataProps & PropTypes<CustomFormConfig>)
+  | StandaloneDataProps<CustomFormConfig>
+  | DataProps<CustomFormConfig>
 
 export const formComponentDefaultProps = {
   editable: true,
