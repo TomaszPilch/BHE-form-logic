@@ -62,6 +62,6 @@ export type DefaultFieldProps<ValueType = any> = {
   value: ValueType
 }
 
-export type CustomFormComponentType = {
-  [key: string]: ComponentType<DefaultFieldProps>
+export type CustomFormComponentType<CustomProps extends DefaultFieldProps = any> = {
+  [key: string]: ComponentType<CustomProps>
 }
