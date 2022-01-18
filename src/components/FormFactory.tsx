@@ -82,23 +82,29 @@ function useFormComponentHooksFunction<CustomFormConfig extends FormConfig>(
     }
   }, [props.defaultData])
 
-  const handleOnBlur = useCallback((name: string, value: string) => {
-    if (standalone) {
-      setData((prevData: FormDataType) => assoc(name, value, prevData))
-    }
-    if (typeof props.onBlur === 'function') {
-      props.onBlur(name, value)
-    }
-  }, [])
+  const handleOnBlur = useCallback(
+    (name: string, value: string) => {
+      if (standalone) {
+        setData((prevData: FormDataType) => assoc(name, value, prevData))
+      }
+      if (typeof props.onBlur === 'function') {
+        props.onBlur(name, value)
+      }
+    },
+    [props.onBlur],
+  )
 
-  const handleOnChange = useCallback((name: string, value: string) => {
-    if (standalone) {
-      setData((prevData: FormDataType) => assoc(name, value, prevData))
-    }
-    if (typeof props.onChange === 'function') {
-      props.onChange(name, value)
-    }
-  }, [])
+  const handleOnChange = useCallback(
+    (name: string, value: string) => {
+      if (standalone) {
+        setData((prevData: FormDataType) => assoc(name, value, prevData))
+      }
+      if (typeof props.onChange === 'function') {
+        props.onChange(name, value)
+      }
+    },
+    [props.onChange],
+  )
 
   return [standalone, data, setData, touched, setTouched, handleOnBlur, handleOnChange]
 }
@@ -167,7 +173,6 @@ function FormFactory<CustomFormConfig extends FormConfig>(props: FormComponentPr
     </form>
   )
 }
-2
 
 FormFactory.defaultProps = formComponentDefaultProps
 export default FormFactory
