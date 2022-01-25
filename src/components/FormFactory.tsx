@@ -36,21 +36,11 @@ interface PropTypes<CustomFormConfig extends FormConfig> extends DefaultFieldAct
   submitButtonComponentCreator?: (
     submitFn: (event: FormEvent<HTMLFormElement> | React.MouseEvent<any | HTMLSpanElement>) => void,
   ) => ReactElement
+  standalone?: boolean
+  data?: FormDataType
 }
 
-interface StandaloneDataProps<CustomFormConfig extends FormConfig> extends PropTypes<CustomFormConfig> {
-  standalone: true
-  data?: never
-}
-
-interface DataProps<CustomFormConfig extends FormConfig> extends PropTypes<CustomFormConfig> {
-  standalone: false
-  data: FormDataType
-}
-
-export type FormComponentProps<CustomFormConfig extends FormConfig> =
-  | StandaloneDataProps<CustomFormConfig>
-  | DataProps<CustomFormConfig>
+export type FormComponentProps<CustomFormConfig extends FormConfig> = PropTypes<CustomFormConfig>
 
 export const formComponentDefaultProps = {
   editable: true,
@@ -81,6 +71,12 @@ function useFormComponentHooksFunction<CustomFormConfig extends FormConfig>(
       setData(props.defaultData)
     }
   }, [props.defaultData])
+
+  useEffect(() => {
+    if (typeof props.touched === 'boolean') {
+      setTouched(props.touched)
+    }
+  }, [props.touched])
 
   const handleOnBlur = useCallback(
     (name: string, value: string) => {
