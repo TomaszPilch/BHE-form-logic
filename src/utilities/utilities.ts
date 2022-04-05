@@ -25,12 +25,14 @@ export const getMessageFromValidationError = (
   return false
 }
 
-export const getErrorText = (errors: ValidationResult | ValidationResult[], t: Function) => {
+export const getErrorText = (errors: ValidationResult | ValidationResult[], t: Function, errorPrefix: string = '') => {
   const error = getMessageFromValidationError(errors)
   if (!error) {
     return ''
   }
-  return `${t(error.msg, error.data)} ${error.suffix ? t(error.suffix.msg, error.suffix.data) : ''}`
+  return `${t(`${errorPrefix}${error.msg}`, error.data)} ${
+    error.suffix && error.suffix.msg ? t(`${errorPrefix}${error.suffix.msg}`, error.suffix.data) : ''
+  }`
 }
 
 export const copyString = (text: string, element: string = 'textarea') => {

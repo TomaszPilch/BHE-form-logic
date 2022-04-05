@@ -38,6 +38,7 @@ interface PropTypes<CustomFormConfig extends FormConfig> extends DefaultFieldAct
   ) => ReactElement
   standalone?: boolean
   data?: FormDataType
+  placeholderPrefix?: string
 }
 
 export type FormComponentProps<CustomFormConfig extends FormConfig> = PropTypes<CustomFormConfig>
@@ -134,6 +135,7 @@ function FormFactory<CustomFormConfig extends FormConfig>(props: FormComponentPr
     rowCreator,
     submitButtonComponentCreator,
     t,
+    placeholderPrefix,
   } = props
 
   return (
@@ -145,14 +147,15 @@ function FormFactory<CustomFormConfig extends FormConfig>(props: FormComponentPr
         let formComponent = (
           <FormComponentItem
             key={fieldConfig.name}
-            formComponents={formComponents}
             data={!standalone && props.data ? props.data : data}
             editable={editable}
             fetchResources={fetchResources}
             fieldConfig={fieldConfig}
+            formComponents={formComponents}
             labelPrefix={labelPrefix}
             onBlur={handleOnBlur}
             onChange={handleOnChange}
+            placeholderPrefix={placeholderPrefix}
             t={t}
             touched={touched}
           />
