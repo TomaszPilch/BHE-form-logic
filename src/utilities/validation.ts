@@ -85,7 +85,9 @@ function useFieldValidationFn<FieldConfig extends FieldConfigBasicType<string>>(
   }, [value])
 
   useEffect(() => {
-    setTouched(pushTouched)
+    if (typeof pushTouched === 'boolean') {
+      setTouched(pushTouched)
+    }
   }, [pushTouched])
 
   return [Object.keys(validationError).length === 0, validationError, setValidationError, touched, setTouched]
