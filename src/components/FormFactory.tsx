@@ -109,7 +109,7 @@ function useFormComponentHooksFunction<CustomFormConfig extends FormConfig>(
 export const useFormComponentHooks = useFormComponentHooksFunction
 
 function FormFactory<CustomFormConfig extends FormConfig>(props: FormComponentProps<CustomFormConfig>) {
-  const [standalone, data, , touched, setTouched, handleOnBlur, handleOnChange] = useFormComponentHooks(props)
+  const [standalone, data, setData, touched, setTouched, handleOnBlur, handleOnChange] = useFormComponentHooks(props)
 
   const handleSubmit = (event: FormEvent<HTMLFormElement> | React.MouseEvent<any | HTMLSpanElement>) => {
     const { customValidationRules, formConfig, onSubmit } = props
@@ -119,6 +119,8 @@ function FormFactory<CustomFormConfig extends FormConfig>(props: FormComponentPr
     const dataToValidate = (standalone ? data : props.data) as FormDataType
     const [isValid] = validate<any>(formConfig, dataToValidate, customValidationRules)
     if (isValid) {
+      setTouched(false)
+      setData(props.defaultData ? props.defaultData : {})
       onSubmit(dataToValidate)
     } else {
       setTouched(true)

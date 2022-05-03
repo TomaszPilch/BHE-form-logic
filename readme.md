@@ -6,6 +6,93 @@ Use for rendering forms, just pass your input components. Form contains validati
 yarn add @bheui/form-logic
 ```
 
+## Basic usage
+
+```typescript jsx
+import FormFactory from '@bheui/form-logic/lib/components/FormFactory'
+
+const CONTACT_FORM_CONFIG: FormConfig = [
+  {
+    type: 'text',
+    name: 'name',
+    column: 'name',
+    showPlaceholder: true,
+    validation: { isRequired: true },
+  },
+  {
+    type: 'text',
+    name: 'title',
+    column: 'title',
+    showPlaceholder: true,
+    validation: { isRequired: true },
+  }
+]
+
+const FORM_COMPONENTS = {
+  text: Input, // component for text input
+}
+
+const Form = ({ t }) => {
+  const submitButtonComponentCreator = (handleSubmit) => (
+    <Button variant="primary" onClick={handleSubmit}>
+      {t('button.submit')}
+    </Button>
+  )
+  
+  return (
+    <FormFactory
+      formComponents={FORM_COMPONENTS}
+      formConfig={CONTACT_FORM_CONFIG}
+      onSubmit={console.log}
+      standalone
+      t={t}
+      submitButtonComponentCreator={submitButtonComponentCreator}
+      defaultData={{}}
+      placeholderPrefix="contactForm.placeholder."
+      labelPrefix="contactForm.label."
+    />
+  )
+}
+
+export default Form
+```
+
+### You can specify row and column creators (simple grid)
+
+```typescript jsx
+
+// wraps every item
+const columnCreator = (_name: string, component) => (
+  <div className="flex-row">
+    <div className="form">{component}</div>
+  </div>
+)
+
+const Form = ({ t }) => {
+  const submitButtonComponentCreator = (handleSubmit) => (
+    <Button variant="primary" onClick={handleSubmit}>
+      {t('button.submit')}
+    </Button>
+  )
+  
+  return (
+    <FormFactory
+      formComponents={FORM_COMPONENTS}
+      formConfig={CONTACT_FORM_CONFIG}
+      onSubmit={console.log}
+      standalone
+      t={t}
+      submitButtonComponentCreator={submitButtonComponentCreator}
+      columnCreator={columnCreator}
+      // rowCreator={...} - it triggers on config.startOfRow
+      defaultData={{}}
+      placeholderPrefix="contactForm.placeholder."
+      labelPrefix="contactForm.label."
+    />
+  )
+}
+```
+
 ## Defining input component
 
 ```typescript jsx
