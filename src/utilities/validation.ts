@@ -82,10 +82,11 @@ function useFieldValidationFn<FieldConfig extends FieldConfigBasicType<string>>(
     if (newErrorsRules.length !== actualErrorsRules.length || allKeys.length > actualErrorsRules.length) {
       setValidationError(newErrors)
     }
-    if (pushTouched && !touched) {
-      setTouched(pushTouched)
-    }
-  }, [value, pushTouched])
+  }, [value])
+
+  useEffect(() => {
+    setTouched(pushTouched)
+  }, [pushTouched])
 
   return [Object.keys(validationError).length === 0, validationError, setValidationError, touched, setTouched]
 }
