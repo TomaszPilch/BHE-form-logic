@@ -58,14 +58,14 @@ function useFormComponentHooksFunction<CustomFormConfig extends FormConfig>(
   boolean,
   FormDataType,
   Dispatch<SetStateAction<FormDataType>>,
-  boolean,
-  Dispatch<SetStateAction<boolean>>,
+  boolean | undefined,
+  Dispatch<SetStateAction<boolean | undefined>>,
   ActionOnBlur<any>,
   ActionOnChange<any>,
 ] {
   const [standalone] = useState<boolean>(!props.data)
   const [data, setData] = useState<FormDataType>(props.defaultData ? props.defaultData : {})
-  const [touched, setTouched] = useState<boolean>(false)
+  const [touched, setTouched] = useState<undefined | boolean>()
 
   useEffect(() => {
     if (props.defaultData) {
@@ -81,6 +81,9 @@ function useFormComponentHooksFunction<CustomFormConfig extends FormConfig>(
 
   const handleOnBlur = useCallback(
     (name: string, value: string) => {
+      if (typeof touched === 'boolean') {
+        setTouched(undefined)
+      }
       if (standalone) {
         setData((prevData: FormDataType) => assoc(name, value, prevData))
       }
@@ -93,6 +96,9 @@ function useFormComponentHooksFunction<CustomFormConfig extends FormConfig>(
 
   const handleOnChange = useCallback(
     (name: string, value: string) => {
+      if (typeof touched === 'boolean') {
+        setTouched(undefined)
+      }
       if (standalone) {
         setData((prevData: FormDataType) => assoc(name, value, prevData))
       }
