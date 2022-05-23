@@ -100,7 +100,7 @@ import { useFieldValidation } from '../utilities/validation'
 import { getErrorText } from '../utilities/utilities'
 
 export type DateFormFieldConfig = FieldConfigBasicType<'date'>
-export interface DateProps extends DefaultFieldProps<undefined | string>, DefaultFieldActionProps<string> {
+export interface DateProps extends DefaultFieldProps<undefined | string> {
   formFieldConfig: DateFormFieldConfig
 }
 

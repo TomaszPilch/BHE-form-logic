@@ -17,7 +17,9 @@
   "files": [
     "package.json",
     "readme.md",
-    "lib/*",
+    "lib/components/*",
+    "lib/types/*",
+    "lib/utilities/*",
     "yarn.lock"
   ],
   "peerDependencies": {

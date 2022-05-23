@@ -52,7 +52,7 @@ export const formComponentDefaultProps = {
   onSubmit: () => {},
 }
 
-function useFormComponentHooksFunction<CustomFormConfig extends FormConfig>(
+export function useFormComponentHooksFunction<CustomFormConfig extends FormConfig>(
   props: FormComponentProps<CustomFormConfig>,
 ): [
   boolean,
